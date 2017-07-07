@@ -1,6 +1,6 @@
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
 const cssModules = 'modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]'
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
   entry: ['./src/index.jsx'],
   output: {
     filename: 'app.js',
-    path: __dirname + '/build',
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/'
   },
 
@@ -29,7 +29,7 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin( { template: './src/assets/index.html' } ),
-    new ExtractTextPlugin( { filename: 'styles.css', disable: false, allChunks: true } )
+    new HtmlWebpackPlugin({ template: './src/assets/index.html' }),
+    new ExtractTextPlugin({ filename: 'styles.css', disable: false, allChunks: true })
   ]
 }
