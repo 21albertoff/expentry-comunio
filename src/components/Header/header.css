@@ -1,7 +1,7 @@
 .root {
   display: flex;
   background-color: #01DF74;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   color: #000;
   padding: 1em;
