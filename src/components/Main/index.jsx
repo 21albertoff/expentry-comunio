@@ -3,8 +3,6 @@ import uuid from 'uuid'
 
 import styles from './main.css'
 
-import Season from '../Season'
-
 class Main extends Component {
   constructor() {
     super()
@@ -26,9 +24,23 @@ class Main extends Component {
   }
 
   render () {
+    let year = new Date().getFullYear()
+
     return (
       <div className={styles.root}>
-        <Season seasons={this.state.seasons} />
+        <p className={styles.literalSeason}>Temporada</p>
+                <select className={styles.seasonCombo} defaultValue={year}>
+                {
+                    this.state.seasons.map( season => {
+                        if( year == season.year || year - 1 == season.year ) {
+                            return ( <option value={season.year} key={season.id}>{season.year}</option> )
+                        }
+                        else {
+                            return ( <option value={season.year} key={season.id}>{season.year}</option> )
+                        }
+                    })
+                }
+                </select>  
       </div>
     )
   }
