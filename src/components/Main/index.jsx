@@ -13,12 +13,12 @@ class Main extends Component {
       seasons: [
         {
           id: uuid(),
-          year: "17/18",
+          year: "2017",
           leagues: []
         },
         {
           id: uuid(),
-          year: "18/19",
+          year: "2018",
           leagues: []
         }
       ]
