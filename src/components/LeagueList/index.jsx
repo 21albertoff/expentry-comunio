@@ -1,9 +1,21 @@
 import React from 'react'
 
-function LeagueList ({ season, leagues }) {
+import League from '../League'
+
+import styles from './league-list.css'
+
+function LeagueList ({ leagues }) {
+  const leaguesRender = leagues.map(league => {
+    <League
+      key={league.id}
+      name={league.name}
+      players={league.players}
+    />
+  })
+
   return (
-    <div>
-      Liga, temporada {season}
+    <div className={styles.root}>
+      {leaguesRender}
     </div>
   )
 }
