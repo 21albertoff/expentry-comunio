@@ -12,3 +12,10 @@
   color: #000;
   font-size: 14pt;
 }
+
+.button {
+  background-color: #01DF74;
+  color: #000;
+  border-radius: 5px;
+  border: 1px solid #000;
+}
