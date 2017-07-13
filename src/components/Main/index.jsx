@@ -4,7 +4,7 @@ import uuid from 'uuid'
 import styles from './main.css'
 
 import Season from '../Season'
-import LeagueList from '../LeagueList'
+import LeaguesList from '../LeaguesList'
 
 class Main extends Component {
   constructor () {
@@ -228,7 +228,7 @@ class Main extends Component {
     return (
       <div className={styles.root}>
         <Season seasons={this.state.seasons} getSeasonSelected={this.handleGetSeasonSelected} />
-        <LeagueList leagues={this.state.leaguesNow} />
+        <LeaguesList leagues={this.state.leaguesNow} />
       </div>
     )
   }

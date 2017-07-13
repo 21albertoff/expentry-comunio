@@ -2,9 +2,9 @@ import React from 'react'
 
 import League from '../League'
 
-import styles from './league-list.css'
+import styles from './leagues-list.css'
 
-function LeagueList ({ leagues }) {
+function LeaguesList ({ leagues }) {
   const leaguesRender = leagues.map(league => {
     <League
       key={league.id}
@@ -20,4 +20,4 @@ function LeagueList ({ leagues }) {
   )
 }
 
-export default LeagueList
+export default LeaguesList
