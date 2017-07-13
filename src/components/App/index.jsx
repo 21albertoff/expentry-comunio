@@ -51,7 +51,7 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
-          <Header onLogout={this.handleLogout} />
+          <Header onLogout={this.handleLogout} user={this.state.user} />
 
           <Route exact path='/' render={() => {
             if (this.state.user) {

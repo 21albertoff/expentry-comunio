@@ -1,14 +1,14 @@
 import React from 'react'
 
+import Logout from '../Logout'
+
 import styles from './header.css'
 
-function Header ({ onLogout }) {
+function Header ({ onLogout, user }) {
   return (
     <header className={styles.root}>
       <h1 className={styles.logo}>Expentry comunio</h1>
-        <button onClick={onLogout} className={styles.button}>
-          <span className='fa fa-sign-out' />
-        </button>
+      { user ? <Logout onLogout={onLogout} /> : null }
     </header>
   )
 }
