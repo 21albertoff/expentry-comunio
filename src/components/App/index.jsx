@@ -34,17 +34,33 @@ class App extends Component {
   }
 
   handleOnAuth () {
-    var provider = new firebase.auth.GoogleAuthProvider()
+    const provider = new firebase.auth.GoogleAuthProvider()
 
     firebase.auth().signInWithPopup(provider)
-    .then(result => console.log(`${result.user.email} ha iniciado sesión.`))
+    .then(result => {
+      const db = firebase.database()
+
+      db.ref().child('users').child(`${firebase.auth().currentUser.uid}`).once('value', snapshot => {
+        if (snapshot.val()) {
+          //TODO: cargamos las ligas del usuario.
+          console.log(`Existe. ${snapshot.val().email}`)
+        } else {
+          // Añadimos el usuario de la sesión a la bd.
+          db.ref('/users/' + firebase.auth().currentUser.uid).set({
+            displayName: firebase.auth().currentUser.displayName,
+            email: firebase.auth().currentUser.email,
+            leagues: ''
+          })
+        }
+      })
+    })
     .catch(error => console.log(`Error: ${error.code}: ${error.message}`))
   }
 
   handleLogout () {
     firebase.auth().signOut()
     .then(() => console.log('Te has desconectado correctamente.'))
-    .catch(() => console.log('Un error ocurrió'))
+    .catch(() => console.log('Un error ocurrió.'))
   }
 
   render () {
