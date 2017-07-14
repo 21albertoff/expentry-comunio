@@ -1,21 +1,11 @@
 import React from 'react'
 
-import League from '../League'
-
 import styles from './leagues-list.css'
 
-function LeaguesList ({ leagues }) {
-  const leaguesRender = leagues.map(league => {
-    <League
-      key={league.id}
-      name={league.name}
-      players={league.players}
-    />
-  })
-
+function LeaguesList ({ user }) {
   return (
     <div className={styles.root}>
-      {leaguesRender}
+      <span>Usuario</span>      
     </div>
   )
 }

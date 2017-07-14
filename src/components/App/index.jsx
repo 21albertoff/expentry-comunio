@@ -71,7 +71,7 @@ class App extends Component {
 
           <Route exact path='/' render={() => {
             if (this.state.user) {
-              return (<Main />)
+              return (<Main user={this.state.user} />)
             } else {
               return (<Login onAuth={this.handleOnAuth} />)
             }
