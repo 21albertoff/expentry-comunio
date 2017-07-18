@@ -14,7 +14,8 @@ class App extends Component {
     super()
 
     this.state = {
-      user: null
+      user: null,
+      userSession: null
     }
 
     this.handleOnAuth = this.handleOnAuth.bind(this)
@@ -25,10 +26,23 @@ class App extends Component {
   componentWillMount () {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({ user })
+        this.getUserDbWithUserSession(user)
         console.log(user)
       } else {
-        this.setState({ user: null })
+        this.setState({ user: null, userSession: null })
+      }
+    })
+  }
+
+  getUserDbWithUserSession (userSession) {
+    const db = firebase.database()
+
+    db.ref().child('users').child(`${userSession.uid}`).once('value', snapshot => {
+      if (snapshot.val()) {
+        this.setState({
+          user: userSession,
+          userSession: snapshot.val()
+        })
       }
     })
   }
@@ -42,16 +56,29 @@ class App extends Component {
 
       db.ref().child('users').child(`${firebase.auth().currentUser.uid}`).once('value', snapshot => {
         if (snapshot.val()) {
-          //TODO: cargamos las ligas del usuario.
-          console.log(`Existe. ${snapshot.val().email}`)
+          this.setState({
+            user: snapshot.val()
+          })
         } else {
           // Añadimos el usuario de la sesión a la bd.
           db.ref('/users/' + firebase.auth().currentUser.uid).set({
+            id: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
             email: firebase.auth().currentUser.email,
             leagues: ''
           })
         }
+
+        // Una vez creado el usuario, pasamos el usuario creado para que cargue la pantalla de ligas de este.
+        this.setState({
+          userSession: {
+            id: firebase.auth().currentUser.uid,
+            displayName: firebase.auth().currentUser.displayName,
+            email: firebase.auth().currentUser.email,
+            leagues: ''
+          },
+          user: firebase.auth().currentUser
+        })
       })
     })
     .catch(error => console.log(`Error: ${error.code}: ${error.message}`))
@@ -70,8 +97,8 @@ class App extends Component {
           <Header onLogout={this.handleLogout} user={this.state.user} />
 
           <Route exact path='/' render={() => {
-            if (this.state.user) {
-              return (<Main user={this.state.user} />)
+            if (this.state.userSession) {
+              return (<Main user={this.state.userSession} />)
             } else {
               return (<Login onAuth={this.handleOnAuth} />)
             }
