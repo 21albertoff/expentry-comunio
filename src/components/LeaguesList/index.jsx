@@ -28,10 +28,11 @@ class LeaguesList extends Component {
     return (
       <div>
         <header className={styles.root}>
+          <div>&nbsp;</div>
           <h3>Ligas</h3>
-          <button type='button' className={styles.button} onClick={this.handleAddLeague}>
-            <span className={styles.addLeague}>+</span>
-          </button>
+          <div className={styles.button} onClick={this.handleAddLeague}>
+            <span className='fa fa-plus' />
+          </div>
         </header>
         {leaguesRender}
       </div>
