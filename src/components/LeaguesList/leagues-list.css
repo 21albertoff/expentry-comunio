@@ -1,7 +1,20 @@
-.root {
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.hideHeader {
+  display: none;
+}
+
+.showLeagueList {
+  display: flex;
+  flex-direction: row;
+}
+
+.hideLeagueList {
+  display: none;
 }
 
 .button {
