@@ -61,7 +61,7 @@ class LeaguesList extends Component {
       season = (parseInt(year) - 1).toString().substring(2) + '/' + year.substring(2)
     }
 
-    firebase.database().ref('leagues/' + uid).set({
+    firebase.database().ref('/leagues/' + uid).set({
       id: uid,
       name: event.target.name.value,
       season: season,
@@ -74,13 +74,15 @@ class LeaguesList extends Component {
   }
 
   getLeagueOfDb (keyLeague) {
-    firebase.database().ref().child('leagues').child(`${keyLeague}`).once('value', snapshot => {
+    let league = null
+
+    firebase.database().ref('/leagues/' + keyLeague).once('value', snapshot => {
       if (snapshot.val()) {
-        return snapshot.val()
+        league = snapshot.val()
       }
     })
 
-    return null
+    return league
   }
 
   renderOpenFormAddLeague () {
@@ -101,7 +103,8 @@ class LeaguesList extends Component {
         const existLeague = this.getLeagueOfDb(league)
 
         if (existLeague !== null) {
-          return (<League />)
+          return (<League id={existLeague.id} name={existLeague.name} players={existLeague.players} 
+          season={existLeague.season} user={existLeague.user} key={existLeague.id} />)
         }
       })
     } else {

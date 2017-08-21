@@ -1,0 +1,29 @@
+.root {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .hideHeader {
+    display: none;
+  }
+  
+  .showPlayerList {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .hidePlayerList {
+    display: none;
+  }
+  
+  .button {
+    margin-top: 1em;
+    cursor: pointer;
+  }

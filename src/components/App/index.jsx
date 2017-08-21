@@ -5,13 +5,14 @@ import firebase from 'firebase'
 import Header from '../Header'
 import Main from '../Main'
 import Login from '../Login'
+import PlayersList from '../PlayersList'
 
 import 'normalize-css'
 import styles from './app.css'
 
 class App extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
     this.state = {
       user: null,
@@ -104,6 +105,14 @@ class App extends Component {
             }
           }}
           />
+
+          <Route exact path='/playersList/:id' render={({match}) => {
+            return (<PlayersList league={match.params.id} />)
+          }} />
+
+          <Route exact path='/operationsList/:id' render={({match}) => {
+            return (<OperationsList player={match.params.id} />)
+          }} />
         </div>
       </HashRouter>
     )

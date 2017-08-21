@@ -1,0 +1,52 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.datos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.arrow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.content_arrow {
+    margin: auto;
+}
+
+.parrafo {
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 10pt;
+    color: #BDBDBD;
+    font-style: italic;
+}
+
+.number {
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.link {
+    text-decoration: none;
+}
+
+a:link {
+    color: #000000;
+}
+
+a:visited {
+    color: #000000;
+}
+
+a:active {
+    color: #000000;
+}
