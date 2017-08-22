@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { HashRouter, Route } from 'react-router-dom'
+import { withRouter, Route } from 'react-router-dom'
 import firebase from 'firebase'
 
 import Header from '../Header'
@@ -94,36 +94,35 @@ class App extends Component {
         userSession: null,
         user: null
       })
+      this.props.history.push('/')
     })
     .catch(() => console.log('Un error ocurrió.'))    
   }
 
   render () {
     return (
-      <HashRouter>
-        <div>
-          <Header onLogout={this.handleLogout} user={this.state.user} />
+      <div>
+        <Header onLogout={this.handleLogout} user={this.state.user} />
 
-          <Route exact path='/' render={() => {
-            if (this.state.userSession) {
-              return (<Main user={this.state.userSession} />)
-            } else {
-              return (<Login onAuth={this.handleOnAuth} />)
-            }
-          }}
-          />
+        <Route exact path='/' render={() => {
+          if (this.state.userSession) {
+            return (<Main user={this.state.userSession} />)
+          } else {
+            return (<Login onAuth={this.handleOnAuth} />)
+          }
+        }}
+        />
 
-          <Route exact path='/playersList/:id' render={({match}) => {
-            return (<PlayersList league={match.params.id} />)
-          }} />
+        <Route exact path='/playersList/:id' render={({match}) => {
+          return (<PlayersList league={match.params.id} />)
+        }} />
 
-          <Route exact path='/operationsList/:id' render={({match}) => {
-            return (<OperationsList player={match.params.id} />)
-          }} />
-        </div>
-      </HashRouter>
+        <Route exact path='/operationsList/:id' render={({match}) => {
+          return (<OperationsList player={match.params.id} />)
+        }} />
+      </div>
     )
   }
 }
 
-export default App
+export default withRouter(App)

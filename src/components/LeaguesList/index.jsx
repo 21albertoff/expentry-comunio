@@ -34,14 +34,14 @@ class LeaguesList extends Component {
     })
   }
 
-  componentWillReceiveProps () {
-    // Añadimos a la propiedad league del state las ligas que contiene el usuario de la sesión.
-    if (this.props.user.leagues.length > 0) {
-      this.setState({
-        leagues: this.state.leagues.concat(this.props.user.leagues.split(','))
-      })
-    }
-  }
+  // componentWillReceiveProps () {
+  //   // Añadimos a la propiedad league del state las ligas que contiene el usuario de la sesión.
+  //   if (this.props.user.leagues.length > 0) {
+  //     this.setState({
+  //       leagues: this.state.leagues.concat(this.props.user.leagues.split(','))
+  //     })
+  //   }
+  // }
 
   // Función que abre el formulario para añadir una liga al usuario.
   handleAddLeague () {
