@@ -27,8 +27,10 @@ class OperationsList extends Component {
 
         operationsRef.on('child_added', snapshot => {
             if (snapshot.val().player === this.props.player) {
+                let operations = this.state.operations
+
                 this.setState({
-                    operations: this.state.operations.concat(snapshot.val()),
+                    operations: operations.concat(snapshot.val()),
                     openAddOperationText: false
                 })
             }
@@ -39,8 +41,10 @@ class OperationsList extends Component {
         firebase.database().ref(`/players/${this.props.player}`).once('value', snapshot => {
             if (snapshot.val()) {
                 if (snapshot.val().operations.length > 0) {
+                    let operations = this.state.operations
+
                     this.setState({
-                        operations: this.state.operations.concat(snapshot.val().operations.split(',')),
+                        operations: operations.concat(snapshot.val().operations.split(',')),
                         operationsIds: snapshot.val().operations
                     })
                 }

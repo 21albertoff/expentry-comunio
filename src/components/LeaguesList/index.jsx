@@ -13,7 +13,8 @@ class LeaguesList extends Component {
 
     this.state = {
       openAddLeagueText: false,
-      leagues: []
+      leagues: [],
+      leaguesIds: ''
     }
 
     this.handleAddLeague = this.handleAddLeague.bind(this)
@@ -27,8 +28,9 @@ class LeaguesList extends Component {
     leaguesRef.on('child_added', snapshot => {
       if (snapshot.val().user === this.props.user.id) {
         this.setState({
-          leagues: this.state.leagues.concat(snapshot.val().id),
-          openAddLeagueText: false
+          leagues: this.state.leagues.concat(snapshot.val()),
+          openAddLeagueText: false,
+          leaguesIds: (this.state.leaguesIds.length > 0) ? this.state.leaguesIds + snapshot.val().id : snapshot.val().id
         })
       }
     })
@@ -82,7 +84,7 @@ class LeaguesList extends Component {
 
     // TODO: Añadimos el id de la liga al registro del usuario.
     if (this.state.leagues.length > 0) {
-      firebase.database().ref().child('users').child(`${this.props.user.id}/leagues`).set(this.props.user.leagues + ',' + uid)
+      firebase.database().ref().child('users').child(`${this.props.user.id}/leagues`).set(this.state.leaguesIds + ',' + uid)
     }
     else {
       firebase.database().ref().child('users').child(`${this.props.user.id}/leagues`).set(uid)
@@ -117,7 +119,7 @@ class LeaguesList extends Component {
 
     if (this.state.leagues.length > 0) {
       leaguesRender = this.state.leagues.map((league, index) => {
-        const existLeague = this.getLeagueOfDb(league)
+        const existLeague = this.getLeagueOfDb(league.id)
 
         if (existLeague !== null) {
           return (<League key={index+1} id={existLeague.id} name={existLeague.name} players={existLeague.players}

@@ -27,8 +27,10 @@ class PlayersList extends Component {
 
         playersRef.on('child_added', snapshot => {
             if (snapshot.val().league === this.props.league) {
+                let players = this.state.players
+
                 this.setState({
-                    players: this.state.players.concat(snapshot.val()),
+                    players: players.concat(snapshot.val()),
                     openAddPlayerText: false
                 })    
             }
@@ -39,8 +41,10 @@ class PlayersList extends Component {
         firebase.database().ref(`/leagues/${this.props.league}`).once('value', snapshot => {
             if (snapshot.val()) {
                 if (snapshot.val().players.length > 0) {
+                    let players = this.state.players
+
                     this.setState({
-                        players: this.state.players.concat(snapshot.val().players.split(',')),
+                        players: players.concat(snapshot.val().players.split(',')),
                         playersIds: snapshot.val().players
                     })
                 }
