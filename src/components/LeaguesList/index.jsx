@@ -25,10 +25,12 @@ class LeaguesList extends Component {
     const leaguesRef = firebase.database().ref().child('leagues')
 
     leaguesRef.on('child_added', snapshot => {
-      this.setState({
-        leagues: this.state.leagues.concat(snapshot.val().id),
-        openAddLeagueText: false
-      })
+      if (snapshot.val().user === this.props.user.id) {
+        this.setState({
+          leagues: this.state.leagues.concat(snapshot.val().id),
+          openAddLeagueText: false
+        })
+      }
     })
   }
 
@@ -36,7 +38,7 @@ class LeaguesList extends Component {
     // Añadimos a la propiedad league del state las ligas que contiene el usuario de la sesión.
     if (this.props.user.leagues.length > 0) {
       this.setState({
-        leagues: this.props.user.leagues.split(',')
+        leagues: this.state.leagues.concat(this.props.user.leagues.split(','))
       })
     }
   }

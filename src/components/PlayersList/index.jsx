@@ -26,10 +26,12 @@ class PlayersList extends Component {
         const playersRef = firebase.database().ref().child('players')
 
         playersRef.on('child_added', snapshot => {
-            this.setState({
-                players: this.state.players.concat(snapshot.val()),
-                openAddPlayerText: false
-            })
+            if (snapshot.val().league === this.props.league) {
+                this.setState({
+                    players: this.state.players.concat(snapshot.val()),
+                    openAddPlayerText: false
+                })    
+            }
         })
     }
 

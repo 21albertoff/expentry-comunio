@@ -26,10 +26,12 @@ class OperationsList extends Component {
         const operationsRef = firebase.database().ref().child('operations')
 
         operationsRef.on('child_added', snapshot => {
-            this.setState({
-                operations: this.state.operations.concat(snapshot.val()),
-                openAddOperationText: false
-            })
+            if (snapshot.val().player === this.props.player) {
+                this.setState({
+                    operations: this.state.operations.concat(snapshot.val()),
+                    openAddOperationText: false
+                })
+            }
         })
     }
 
