@@ -17,7 +17,7 @@ class Player extends Component {
               <h2 className={styles.parrafo}>{this.props.name}</h2>
               <p className={styles.parrafo}>
                 <span className={styles.subtitle}>Saldo: </span>
-                <span className={(this.props.balance < 0) ? styles.number_negative : styles.number}>{this.props.balance}</span>
+                <span className={(this.props.balance < 0) ? styles.number_negative : styles.number}>{this.props.balance}€</span>
               </p>              
             </div>
             <div className={styles.arrow}>

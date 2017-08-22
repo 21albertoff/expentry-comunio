@@ -7,7 +7,7 @@ function AddLeague ({ onSubmitFormLeague, onCloseFormLeague }) {
     <form className={styles.form} method='post' onSubmit={onSubmitFormLeague}>
       <div>
         <span>Nombre: </span>
-        <input type='text' name='name' className={styles.name} />
+        <input type='text' name='name' className={styles.text} />
       </div>
       <div className={styles.buttons}>
         <button className={styles.close} onClick={onCloseFormLeague}>

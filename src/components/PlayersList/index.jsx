@@ -8,14 +8,13 @@ import AddPlayer from '../AddPlayer'
 import Player from '../Player'
 
 class PlayersList extends Component {
-    constructor () {
-        super ()
-
-        console.log()
+    constructor (props) {
+        super (props)
 
         this.state = {
             openAddPlayerText: false,
-            players: []
+            players: [],
+            playersIds: ''
         }
 
         this.handleAddPlayer = this.handleAddPlayer.bind(this)
@@ -33,6 +32,19 @@ class PlayersList extends Component {
             })
         })
     }
+
+    componentWillReceiveProps () {        
+        firebase.database().ref(`/leagues/${this.props.league}`).once('value', snapshot => {
+            if (snapshot.val()) {
+                if (snapshot.val().players.length > 0) {
+                    this.setState({
+                        players: this.state.players.concat(snapshot.val().players.split(',')),
+                        playersIds: snapshot.val().players
+                    })
+                }
+            }
+        })        
+      }
 
      // Función que abre el formulario para añadir un player a la liga seleccionada.
     handleAddPlayer () {
@@ -64,10 +76,16 @@ class PlayersList extends Component {
     
         // TODO: Añadimos el id del jugador al registro de la liga.
         if (this.state.players.length > 0) {
-            firebase.database().ref().child('leagues').child(`${this.props.league}`).set(',' + uid)
+            firebase.database().ref().child('leagues').child(`${this.props.league}/players`).set(this.state.playersIds + ',' + uid)
+            this.setState({
+                playersIds: this.state.playersIds + ',' + uid
+            })
         }
         else {
-            firebase.database().ref().child('leagues').child(`${this.props.league}`).set(uid)
+            firebase.database().ref().child('leagues').child(`${this.props.league}/players`).set(uid)
+            this.setState({
+                playersIds: uid
+            })
         }
       }
     

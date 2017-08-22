@@ -36,9 +36,16 @@ class League extends Component {
   }
 
   getNumberPlayers(players) {
-    let number_players = players.split(',')
+    let number_players
 
-    return number_players.length
+    if (players.length > 0) {
+      number_players = players.split(',').length
+    }
+    else {
+      return 0
+    }    
+
+    return number_players
   }
 }
 

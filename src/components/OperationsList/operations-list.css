@@ -14,12 +14,12 @@
     display: none;
   }
   
-  .showPlayerList {
+  .showOperationList {
     display: flex;
     flex-direction: column;
   }
   
-  .hidePlayerList {
+  .hideOperationList {
     display: none;
   }
   

@@ -6,10 +6,6 @@ import styles from './main.css'
 import LeaguesList from '../LeaguesList'
 
 class Main extends Component {
-  constructor () {
-    super()
-  }
-
   render () {
     return (
       <div className={styles.root}>

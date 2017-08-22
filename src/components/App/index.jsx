@@ -6,6 +6,7 @@ import Header from '../Header'
 import Main from '../Main'
 import Login from '../Login'
 import PlayersList from '../PlayersList'
+import OperationsList from '../OperationsList'
 
 import 'normalize-css'
 import styles from './app.css'
@@ -87,8 +88,14 @@ class App extends Component {
 
   handleLogout () {
     firebase.auth().signOut()
-    .then(() => console.log('Te has desconectado correctamente.'))
-    .catch(() => console.log('Un error ocurrió.'))
+    .then(() => {
+      console.log('Te has desconectado correctamente.')
+      this.setState({
+        userSession: null,
+        user: null
+      })
+    })
+    .catch(() => console.log('Un error ocurrió.'))    
   }
 
   render () {

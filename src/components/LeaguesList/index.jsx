@@ -26,10 +26,19 @@ class LeaguesList extends Component {
 
     leaguesRef.on('child_added', snapshot => {
       this.setState({
-        leagues: this.state.leagues.concat(snapshot.val()),
+        leagues: this.state.leagues.concat(snapshot.val().id),
         openAddLeagueText: false
       })
     })
+  }
+
+  componentWillReceiveProps () {
+    // Añadimos a la propiedad league del state las ligas que contiene el usuario de la sesión.
+    if (this.props.user.leagues.length > 0) {
+      this.setState({
+        leagues: this.props.user.leagues.split(',')
+      })
+    }
   }
 
   // Función que abre el formulario para añadir una liga al usuario.
@@ -70,7 +79,12 @@ class LeaguesList extends Component {
     })
 
     // TODO: Añadimos el id de la liga al registro del usuario.
-    firebase.database().ref().child('users').child(`${this.props.user.id}/leagues`).set(this.props.user.leagues + ',' + uid)
+    if (this.state.leagues.length > 0) {
+      firebase.database().ref().child('users').child(`${this.props.user.id}/leagues`).set(this.props.user.leagues + ',' + uid)
+    }
+    else {
+      firebase.database().ref().child('users').child(`${this.props.user.id}/leagues`).set(uid)
+    }
   }
 
   getLeagueOfDb (keyLeague) {
@@ -98,13 +112,14 @@ class LeaguesList extends Component {
 
   render () {
     let leaguesRender
-    if (this.props.user.leagues.split(',').length > 0) {
-      leaguesRender = this.props.user.leagues.split(',').map(league => {
+
+    if (this.state.leagues.length > 0) {
+      leaguesRender = this.state.leagues.map((league, index) => {
         const existLeague = this.getLeagueOfDb(league)
 
         if (existLeague !== null) {
-          return (<League id={existLeague.id} name={existLeague.name} players={existLeague.players} 
-          season={existLeague.season} user={existLeague.user} key={existLeague.id} />)
+          return (<League key={index+1} id={existLeague.id} name={existLeague.name} players={existLeague.players}
+          season={existLeague.season} user={existLeague.user} />)
         }
       })
     } else {
