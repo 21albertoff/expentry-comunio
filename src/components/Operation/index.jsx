@@ -8,10 +8,8 @@ class Operation extends Component {
     super (props)
   }
 
-  render () {
-    // let playersListLink = `/playersList/${this.props.id}`
-
-    return (      
+  render () {    
+    return (
       <div className={styles.root}>
         <div className={styles.datos}>
           <h2 className={styles.parrafo}>{this.props.motive}</h2>

@@ -31,25 +31,11 @@ class OperationsList extends Component {
 
                 this.setState({
                     operations: operations.concat(snapshot.val()),
-                    openAddOperationText: false
+                    openAddOperationText: false,
+                    operationsIds: (this.state.operationsIds.length > 0) ? this.state.operationsIds + snapshot.val().id : snapshot.val().id
                 })
             }
         })
-    }
-
-    componentWillReceiveProps () {
-        firebase.database().ref(`/players/${this.props.player}`).once('value', snapshot => {
-            if (snapshot.val()) {
-                if (snapshot.val().operations.length > 0) {
-                    let operations = this.state.operations
-
-                    this.setState({
-                        operations: operations.concat(snapshot.val().operations.split(',')),
-                        operationsIds: snapshot.val().operations
-                    })
-                }
-            }
-        })    
     }
 
      // Función que abre el formulario para añadir una operación al jugador seleccionado.

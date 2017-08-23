@@ -31,26 +31,12 @@ class PlayersList extends Component {
 
                 this.setState({
                     players: players.concat(snapshot.val()),
-                    openAddPlayerText: false
+                    openAddPlayerText: false,
+                    playersIds: (this.state.playersIds.length > 0) ? this.state.playersIds + snapshot.val().id : snapshot.val().id
                 })    
             }
         })
     }
-
-    componentWillReceiveProps () {        
-        firebase.database().ref(`/leagues/${this.props.league}`).once('value', snapshot => {
-            if (snapshot.val()) {
-                if (snapshot.val().players.length > 0) {
-                    let players = this.state.players
-
-                    this.setState({
-                        players: players.concat(snapshot.val().players.split(',')),
-                        playersIds: snapshot.val().players
-                    })
-                }
-            }
-        })        
-      }
 
      // Función que abre el formulario para añadir un player a la liga seleccionada.
     handleAddPlayer () {
