@@ -22,7 +22,7 @@ function AddOperation ({ onSubmitFormOperation, onCloseFormOperation }) {
       <input type='text' name='quantity' className={styles.quantity} />
     </div>
       <div className={styles.buttons}>
-        <button className={styles.close} onClick={onCloseFormOperation}>
+        <button  type='button' className={styles.close} onClick={onCloseFormOperation}>
           <span className='fa fa-times' />
         </button>
         <button className={styles.send} type='submit'>

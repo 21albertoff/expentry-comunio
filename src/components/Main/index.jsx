@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import uuid from 'uuid'
 
 import styles from './main.css'
 
 import LeaguesList from '../LeaguesList'
 
-class Main extends Component {
-  render () {
-    return (
-      <div className={styles.root}>
-        <LeaguesList user={this.props.user} />
-      </div>
-    )
-  }
+function Main ({ user }) {
+  return (
+    <div className={styles.root}>
+      <LeaguesList user={user} />
+    </div>
+  )
 }
 
 export default Main

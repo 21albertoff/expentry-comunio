@@ -10,7 +10,7 @@ function AddPlayer ({ onSubmitFormPlayer, onCloseFormPlayer }) {
         <input type='text' name='name' className={styles.name} />
       </div>
       <div className={styles.buttons}>
-        <button className={styles.close} onClick={onCloseFormPlayer}>
+        <button  type='button' className={styles.close} onClick={onCloseFormPlayer}>
           <span className='fa fa-times' />
         </button>
         <button className={styles.send} type='submit'>
