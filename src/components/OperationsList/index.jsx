@@ -116,7 +116,7 @@ class OperationsList extends Component {
         return balance
     }
 
-    getOperationOfDb (operationId) {
+    checkExistOperationInDb (operationId) {
         let exist = false
 
         firebase.database().ref('/operations/' + operationId).once('value', snapshot => {
@@ -133,7 +133,7 @@ class OperationsList extends Component {
 
         if (this.state.operations.length > 0) {
             operationsRender = this.state.operations.map((operation, index) => {
-            const existOperation = this.getOperationOfDb(operation.id)
+            const existOperation = this.checkExistOperationInDb(operation.id)
     
             if (existOperation) {
               return (

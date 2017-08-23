@@ -82,7 +82,7 @@ class LeaguesList extends Component {
     }
   }
 
-  getLeagueOfDb (keyLeague) {
+  checkExistLeagueInDb (keyLeague) {
     let exist = false
 
     firebase.database().ref('/leagues/' + keyLeague).once('value', snapshot => {
@@ -110,7 +110,7 @@ class LeaguesList extends Component {
 
     if (this.state.leagues.length > 0) {
       leaguesRender = this.state.leagues.map((league, index) => {
-        const existLeague = this.getLeagueOfDb(league.id)
+        const existLeague = this.checkExistLeagueInDb(league.id)
 
         if (existLeague) {
           return (<League key={index+1} id={league.id} name={league.name} players={league.players}

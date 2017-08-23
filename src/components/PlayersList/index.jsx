@@ -92,7 +92,7 @@ class PlayersList extends Component {
         }
       }
       
-    getPlayerOfDb (playerId) {
+    checkExistPlayerInDb (playerId) {
         let exist = false
 
         firebase.database().ref('/players/' + playerId).once('value', snapshot => {
@@ -109,12 +109,13 @@ class PlayersList extends Component {
 
         if (this.state.players.length > 0) {
             playersRender = this.state.players.map(player => {
-            const existPlayer = this.getPlayerOfDb(player.id)
+            const existPlayer = this.checkExistPlayerInDb(player.id)
     
             if (existPlayer) {
-              return (
-                  <Player key={player.id} id={player.id} balance={player.balance} operations={player.operations} name={player.name} />
-              )
+                return (
+                    <Player key={player.id} id={player.id} balance={player.balance}
+                    operations={player.operations} name={player.name} />
+                )
             }
           })
         } else {
