@@ -83,15 +83,15 @@ class LeaguesList extends Component {
   }
 
   getLeagueOfDb (keyLeague) {
-    let league = null
+    let exist = false
 
     firebase.database().ref('/leagues/' + keyLeague).once('value', snapshot => {
       if (snapshot.val()) {
-        league = snapshot.val()
+        exist = true
       }
     })
 
-    return league
+    return exist
   }
 
   renderOpenFormAddLeague () {
@@ -112,9 +112,9 @@ class LeaguesList extends Component {
       leaguesRender = this.state.leagues.map((league, index) => {
         const existLeague = this.getLeagueOfDb(league.id)
 
-        if (existLeague !== null) {
-          return (<League key={index+1} id={existLeague.id} name={existLeague.name} players={existLeague.players}
-          season={existLeague.season} user={existLeague.user} />)
+        if (existLeague) {
+          return (<League key={index+1} id={league.id} name={league.name} players={league.players}
+          season={league.season} user={league.user} />)
         }
       })
     } else {
